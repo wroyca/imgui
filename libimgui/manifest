@@ -41,7 +41,6 @@ builds: -macos
 builds: -bindist
 
 opengl2-builds: sys
-opengl2-builds: -static
 opengl2-builds: -bindist
 opengl2-build-include: linux_debian*-**
 opengl2-build-include: linux_fedora*-**
@@ -52,7 +51,6 @@ config.libimgui.backend="opengl2"
 \
 
 opengl3-builds: sys
-opengl3-builds: -static
 opengl3-builds: -bindist
 opengl3-build-include: linux_debian*-**
 opengl3-build-include: linux_fedora*-**
@@ -63,7 +61,6 @@ config.libimgui.backend="opengl3"
 \
 
 vulkan-builds: sys
-vulkan-builds: -static
 vulkan-builds: -bindist
 vulkan-build-include: linux_debian*-**
 vulkan-build-include: linux_fedora*-**
@@ -74,11 +71,10 @@ config.libimgui.backend="vulkan"
 \
 
 glfw-builds: sys
-glfw-builds: -static
 glfw-builds: -bindist
 glfw-build-include: linux_debian*-**
 glfw-build-include: linux_fedora*-**
-glfw-build-include: windows*-static**
+glfw-build-include: windows*-**
 glfw-build-exclude: **
 glfw-build-config:
 \
@@ -87,7 +83,7 @@ config.libimgui.backend="glfw"
 
 dx9-builds: sys
 dx9-builds: -bindist
-dx9-build-include: windows*-static**
+dx9-build-include: windows*-**
 dx9-build-exclude: **
 dx9-build-config:
 \
@@ -96,7 +92,7 @@ config.libimgui.backend="dx9"
 
 dx10-builds: sys
 dx10-builds: -bindist
-dx10-build-include: windows*-static**
+dx10-build-include: windows*-**
 dx10-build-exclude: **
 dx10-build-config:
 \
@@ -105,7 +101,7 @@ config.libimgui.backend="dx10"
 
 dx11-builds: sys
 dx11-builds: -bindist
-dx11-build-include: windows*-static**
+dx11-build-include: windows*-**
 dx11-build-exclude: **
 dx11-build-config:
 \
@@ -114,7 +110,7 @@ config.libimgui.backend="dx11"
 
 dx12-builds: sys
 dx12-builds: -bindist
-dx12-build-include: windows*-static**
+dx12-build-include: windows*-**
 dx12-build-exclude: **
 dx12-build-config:
 \
@@ -123,7 +119,7 @@ config.libimgui.backend="dx12"
 
 win32-builds: sys
 win32-builds: -bindist
-win32-build-include: windows*-static**
+win32-build-include: windows*-**
 win32-build-exclude: **
 win32-build-config:
 \
