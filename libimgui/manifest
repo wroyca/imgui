@@ -78,6 +78,7 @@ glfw-builds: -static
 glfw-builds: -bindist
 glfw-build-include: linux_debian*-**
 glfw-build-include: linux_fedora*-**
+glfw-build-include: windows*-static**
 glfw-build-exclude: **
 glfw-build-config:
 \
