@@ -1,0 +1,172 @@
+: 1
+name: libimgui
+version: 1.92.4-a.0.z
+language: c++
+project: imgui
+summary: imgui C++ library
+license: GPL-3.0-or-later ; GNU General Public License v3.0 or later.
+package-description-file: PACKAGE-README.md
+url: https://github.com/wroyca/upstream
+email: upstream@example.org
+package-url: https://github.com/build2-packaging/imgui
+package-email: packaging@build2.org ; Mailing list.
+depends: * build2 >= 0.17.0
+depends: * bpkg >= 0.17.0
+
+depends: libopengl-meta >= 1.0.0 ? ($config.libimgui.backend == "opengl2" || \
+                                    $config.libimgui.backend == "opengl3")
+depends: libvulkan-meta >= 1.0.0 ? ($config.libimgui.backend == "vulkan")
+depends:
+\
+glfw >= 3.4.0
+{
+  enable ($config.libimgui.backend == "glfw")
+
+  require
+  {
+    if ($cxx.target.class == 'linux')
+    {
+      config.glfw.build_wayland=true
+      config.glfw.build_x11=true
+    }
+  }
+}
+\
+
+# CI configuration
+#
+
+builds: -freebsd
+builds: -macos
+builds: -bindist
+
+debian-opengl2-builds: sys
+debian-opengl2-builds: -static
+debian-opengl2-builds: -bindist
+debian-opengl2-build-include: linux_debian*-**
+debian-opengl2-build-exclude: **
+debian-opengl2-build-config:
+\
+config.libimgui.backend="opengl2"
+\
+
+debian-opengl3-builds: sys
+debian-opengl3-builds: -static
+debian-opengl3-builds: -bindist
+debian-opengl3-build-include: linux_debian*-**
+debian-opengl3-build-exclude: **
+debian-opengl3-build-config:
+\
+config.libimgui.backend="opengl3"
+\
+
+debian-vulkan-builds: sys
+debian-vulkan-builds: -static
+debian-vulkan-builds: -bindist
+debian-vulkan-build-include: linux_debian*-**
+debian-vulkan-build-exclude: **
+debian-vulkan-build-config:
+\
+config.libimgui.backend="vulkan"
+\
+
+debian-glfw-builds: sys
+debian-glfw-builds: -static
+debian-glfw-builds: -bindist
+debian-glfw-build-include: linux_debian*-**
+debian-glfw-build-exclude: **
+debian-glfw-build-config:
+\
+config.libimgui.backend="glfw"
+\
+
+fedora-opengl2-builds: sys
+fedora-opengl2-builds: -static
+fedora-opengl2-builds: -bindist
+fedora-opengl2-build-include: linux_fedora*-**
+fedora-opengl2-build-exclude: **
+fedora-opengl2-build-config:
+\
+config.libimgui.backend="opengl2"
+\
+
+fedora-opengl3-builds: sys
+fedora-opengl3-builds: -static
+fedora-opengl3-builds: -bindist
+fedora-opengl3-build-include: linux_fedora*-**
+fedora-opengl3-build-exclude: **
+fedora-opengl3-build-config:
+\
+config.libimgui.backend="opengl3"
+\
+
+fedora-vulkan-builds: sys
+fedora-vulkan-builds: -static
+fedora-vulkan-builds: -bindist
+fedora-vulkan-build-include: linux_fedora*-**
+fedora-vulkan-build-exclude: **
+fedora-vulkan-build-config:
+\
+config.libimgui.backend="vulkan"
+\
+
+fedora-glfw-builds: sys
+fedora-glfw-builds: -static
+fedora-glfw-builds: -bindist
+fedora-glfw-build-include: linux_fedora*-**
+fedora-glfw-build-exclude: **
+fedora-glfw-build-config:
+\
+config.libimgui.backend="glfw"
+\
+
+windows-dx9-builds: sys
+windows-dx9-builds: -static
+windows-dx9-builds: -bindist
+windows-dx9-build-include: windows*-**
+windows-dx9-build-exclude: **
+windows-dx9-build-config:
+\
+config.libimgui.backend="dx9"
+\
+
+windows-dx10-builds: sys
+windows-dx10-builds: -static
+windows-dx10-builds: -bindist
+windows-dx10-build-include: windows*-**
+windows-dx10-build-exclude: **
+windows-dx10-build-config:
+\
+config.libimgui.backend="dx10"
+\
+
+windows-dx11-builds: sys
+windows-dx11-builds: -static
+windows-dx11-builds: -bindist
+windows-dx11-build-include: windows*-**
+windows-dx11-build-exclude: **
+windows-dx11-build-config:
+\
+config.libimgui.backend="dx11"
+\
+
+windows-dx12-builds: sys
+windows-dx12-builds: -static
+windows-dx12-builds: -bindist
+windows-dx12-build-include: windows*-**
+windows-dx12-build-exclude: **
+windows-dx12-build-config:
+\
+config.libimgui.backend="dx12"
+\
+
+windows-win32-builds: sys
+windows-win32-builds: -static
+windows-win32-builds: -bindist
+windows-win32-build-include: windows*-**
+windows-win32-build-exclude: **
+windows-win32-build-config:
+\
+config.libimgui.backend="win32"
+\
+

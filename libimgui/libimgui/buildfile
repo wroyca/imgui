@@ -1,0 +1,199 @@
+intf_libs = # Interface dependencies.
+impl_libs = # Implementation dependencies.
+plat_libs = # Platform depencencies.
+
+if ($config.libimgui.backend == "glfw")
+{
+  import intf_libs += glfw%lib{glfw}
+}
+
+if ($config.libimgui.backend == "sdl2")
+{
+  fail "SDL2 backend unsupported in this package; consider contributing an implementation."
+}
+
+if ($config.libimgui.backend == "sdl3")
+{
+  fail "SDL3 backend unsupported in this package; consider contributing an implementation."
+}
+
+if ($config.libimgui.backend == "allegro5")
+{
+  fail "Allegro5 backend unsupported in this package; consider contributing an implementation."
+}
+
+if ($config.libimgui.backend == "glut")
+{
+  fail "GLUT backend unsupported in this package; consider contributing an implementation."
+}
+
+if ($config.libimgui.backend == "win32")
+{
+  if ($cxx.target.class == 'windows')
+  {
+    if ($cxx.target.system == 'mingw32')
+      plat_libs += -ldwmapi -lgdi32
+    else
+      plat_libs += dwmapi.lib gdi32.lib
+  }
+}
+
+if ($config.libimgui.backend == "osx")
+{
+  fail "OSX backend unsupported; consider contributing an implementation."
+}
+
+if ($config.libimgui.backend == "android")
+{
+  fail "Android backend unsupported; consider contributing an implementation."
+}
+
+if ($config.libimgui.backend == "opengl2")
+{
+  import intf_libs += libopengl-meta%lib{opengl-gl}
+}
+
+if ($config.libimgui.backend == "opengl3")
+{
+  import intf_libs += libopengl-meta%lib{opengl-gl}
+}
+
+if ($config.libimgui.backend == "vulkan")
+{
+  import intf_libs += libvulkan-meta%lib{vulkan}
+}
+
+if ($config.libimgui.backend == "dx9")
+{
+  if ($cxx.target.class == 'windows')
+  {
+    if ($cxx.target.system == 'mingw32')
+      plat_libs += -ld3d9
+    else
+      plat_libs += d3d9.lib
+  }
+}
+
+if ($config.libimgui.backend == "dx10")
+{
+  if ($cxx.target.class == 'windows')
+  {
+    if ($cxx.target.system == 'mingw32')
+      plat_libs += -ld3d10 -ld3dcompiler
+    else
+      plat_libs += d3d10.lib d3dcompiler.lib
+  }
+}
+
+if ($config.libimgui.backend == "dx11")
+{
+  if ($cxx.target.class == 'windows')
+  {
+    if ($cxx.target.system == 'mingw32')
+      plat_libs += -ld3d11 -ld3dcompiler
+    else
+      plat_libs += d3d11.lib d3dcompiler.lib
+  }
+}
+
+if ($config.libimgui.backend == "dx12")
+{
+  if ($cxx.target.class == 'windows')
+  {
+    if ($cxx.target.system == 'mingw32')
+      plat_libs += -ld3d12 -ld3dcompiler -ldxgi
+    else
+      plat_libs += d3d12.lib d3dcompiler.lib dxgi.lib
+  }
+}
+
+if ($config.libimgui.backend == "metal")
+{
+  fail "Metal backend unsupported in this package; consider contributing an implementation."
+}
+
+if ($config.libimgui.backend == "wgpu")
+{
+  fail "WebGPU backend unsupported in this package; consider contributing an implementation."
+}
+
+if ($config.libimgui.backend == "sdlrenderer2")
+{
+  fail "SDL Renderer 2 backend unsupported in this package; consider contributing an implementation."
+}
+
+if ($config.libimgui.backend == "sdlrenderer3")
+{
+  fail "SDL Renderer 3 backend unsupported in this package; consider contributing an implementation."
+}
+
+if ($config.libimgui.backend == "sdlgpu3")
+{
+  fail "SDL GPU 3 backend unsupported in this package; consider contributing an implementation."
+}
+
+if ($config.libimgui.backend == "sdlgpu3")
+{
+  fail "SDL GPU 3 backend unsupported in this package; consider contributing an implementation."
+}
+
+lib{imgui}: {hxx cxx}{*} $impl_libs $intf_libs
+lib{imgui}: {hxx cxx}{backends/imgui_impl_glfw}:            include = ($config.libimgui.backend == "glfw")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_sdl2}:            include = ($config.libimgui.backend == "sdl2")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_sdl3}:            include = ($config.libimgui.backend == "sdl3")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_allegro5}:        include = ($config.libimgui.backend == "allegro5")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_glut}:            include = ($config.libimgui.backend == "glut")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_win32}:           include = ($config.libimgui.backend == "win32")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_android}:         include = ($config.libimgui.backend == "android")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_opengl2}:         include = ($config.libimgui.backend == "opengl2")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_opengl3}:         include = ($config.libimgui.backend == "opengl3")
+lib{imgui}: {hxx    }{backends/imgui_impl_opengl3_loader}:  include = ($config.libimgui.backend == "opengl3")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_vulkan}:          include = ($config.libimgui.backend == "vulkan")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_dx9}:             include = ($config.libimgui.backend == "dx9")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_dx10}:            include = ($config.libimgui.backend == "dx10")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_dx11}:            include = ($config.libimgui.backend == "dx11")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_dx12}:            include = ($config.libimgui.backend == "dx12")
+lib{imgui}: {hxx    }{backends/imgui_impl_metal}:           include = ($config.libimgui.backend == "metal")
+lib{imgui}: {hxx    }{backends/imgui_impl_osx}:             include = ($config.libimgui.backend == "osx")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_wgpu}:            include = ($config.libimgui.backend == "wgpu")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_sdlrenderer2}:    include = ($config.libimgui.backend == "sdlrenderer2")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_sdlrenderer3}:    include = ($config.libimgui.backend == "sdlrenderer3")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_sdlgpu3}:         include = ($config.libimgui.backend == "sdlgpu3")
+lib{imgui}: {hxx    }{backends/imgui_impl_sdlgpu3_shaders}: include = ($config.libimgui.backend == "sdlgpu3")
+
+# Build options.
+#
+cxx.poptions =+ "-I$out_root" "-I$src_root" "-I$src_base" "-I$out_base"
+cxx.libs += $plat_libs
+
+#obja{*}: cxx.poptions += -DLIBIMGUI_STATIC_BUILD
+#objs{*}: cxx.poptions += -DLIBIMGUI_SHARED_BUILD
+
+# Export options.
+#
+lib{imgui}:
+{
+  cxx.export.poptions = "-I$out_root" "-I$src_root"
+  cxx.export.libs = $intf_libs $plat_libs
+}
+
+#liba{imgui}: cxx.export.poptions += -DLIBIMGUI_STATIC
+#libs{imgui}: cxx.export.poptions += -DLIBIMGUI_SHARED
+
+# For pre-releases use the complete version to make sure they cannot
+# be used in place of another pre-release or the final version. See
+# the version module for details on the version.* variable values.
+#
+if $version.pre_release
+  lib{imgui}: bin.lib.version = "-$version.project_id"
+else
+  lib{imgui}: bin.lib.version = "-$version.major.$version.minor"
+
+# Install into the libimgui/ subdirectory of, say, /usr/include/
+# recreating subdirectories.
+#
+{hxx ixx txx}{*}:
+{
+  install         = include/libimgui/
+  install.subdirs = true
+}

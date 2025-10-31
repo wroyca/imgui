@@ -1,0 +1,6 @@
+$out_root/
+{
+  include libimgui/
+}
+
+export $out_root/libimgui/$import.target
