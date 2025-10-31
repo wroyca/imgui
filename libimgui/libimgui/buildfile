@@ -164,7 +164,7 @@ lib{imgui}: {hxx    }{backends/imgui_impl_sdlgpu3_shaders}: include = ($config.l
 # Build options.
 #
 cxx.poptions =+ "-I$out_root" "-I$src_root" "-I$src_base" "-I$out_base"
-cxx.poptions =+ "-DIMGUI_IMPL_EXPORT"
+cxx.poptions =+ "-DIMGUI_EXPORT" "-DIMGUI_IMPL_EXPORT"
 
 cxx.libs += $plat_libs
 
