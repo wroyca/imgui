@@ -40,132 +40,91 @@ builds: -freebsd
 builds: -macos
 builds: -bindist
 
-debian-opengl2-builds: sys
-debian-opengl2-builds: -static
-debian-opengl2-builds: -bindist
-debian-opengl2-build-include: linux_debian*-**
-debian-opengl2-build-exclude: **
-debian-opengl2-build-config:
+opengl2-builds: sys
+opengl2-builds: -static
+opengl2-builds: -bindist
+opengl2-build-include: linux_debian*-**
+opengl2-build-include: linux_fedora*-**
+opengl2-build-exclude: **
+opengl2-build-config:
 \
 config.libimgui.backend="opengl2"
 \
 
-debian-opengl3-builds: sys
-debian-opengl3-builds: -static
-debian-opengl3-builds: -bindist
-debian-opengl3-build-include: linux_debian*-**
-debian-opengl3-build-exclude: **
-debian-opengl3-build-config:
+opengl3-builds: sys
+opengl3-builds: -static
+opengl3-builds: -bindist
+opengl3-build-include: linux_debian*-**
+opengl3-build-include: linux_fedora*-**
+opengl3-build-exclude: **
+opengl3-build-config:
 \
 config.libimgui.backend="opengl3"
 \
 
-debian-vulkan-builds: sys
-debian-vulkan-builds: -static
-debian-vulkan-builds: -bindist
-debian-vulkan-build-include: linux_debian*-**
-debian-vulkan-build-exclude: **
-debian-vulkan-build-config:
+vulkan-builds: sys
+vulkan-builds: -static
+vulkan-builds: -bindist
+vulkan-build-include: linux_debian*-**
+vulkan-build-include: linux_fedora*-**
+vulkan-build-exclude: **
+vulkan-build-config:
 \
 config.libimgui.backend="vulkan"
 \
 
-debian-glfw-builds: sys
-debian-glfw-builds: -static
-debian-glfw-builds: -bindist
-debian-glfw-build-include: linux_debian*-**
-debian-glfw-build-exclude: **
-debian-glfw-build-config:
+glfw-builds: sys
+glfw-builds: -static
+glfw-builds: -bindist
+glfw-build-include: linux_debian*-**
+glfw-build-include: linux_fedora*-**
+glfw-build-exclude: **
+glfw-build-config:
 \
 config.libimgui.backend="glfw"
 \
 
-fedora-opengl2-builds: sys
-fedora-opengl2-builds: -static
-fedora-opengl2-builds: -bindist
-fedora-opengl2-build-include: linux_fedora*-**
-fedora-opengl2-build-exclude: **
-fedora-opengl2-build-config:
-\
-config.libimgui.backend="opengl2"
-\
-
-fedora-opengl3-builds: sys
-fedora-opengl3-builds: -static
-fedora-opengl3-builds: -bindist
-fedora-opengl3-build-include: linux_fedora*-**
-fedora-opengl3-build-exclude: **
-fedora-opengl3-build-config:
-\
-config.libimgui.backend="opengl3"
-\
-
-fedora-vulkan-builds: sys
-fedora-vulkan-builds: -static
-fedora-vulkan-builds: -bindist
-fedora-vulkan-build-include: linux_fedora*-**
-fedora-vulkan-build-exclude: **
-fedora-vulkan-build-config:
-\
-config.libimgui.backend="vulkan"
-\
-
-fedora-glfw-builds: sys
-fedora-glfw-builds: -static
-fedora-glfw-builds: -bindist
-fedora-glfw-build-include: linux_fedora*-**
-fedora-glfw-build-exclude: **
-fedora-glfw-build-config:
-\
-config.libimgui.backend="glfw"
-\
-
-windows-dx9-builds: sys
-windows-dx9-builds: -static
-windows-dx9-builds: -bindist
-windows-dx9-build-include: windows*-**
-windows-dx9-build-exclude: **
-windows-dx9-build-config:
+dx9-builds: sys
+dx9-builds: -bindist
+dx9-build-include: windows*-static**
+dx9-build-exclude: **
+dx9-build-config:
 \
 config.libimgui.backend="dx9"
 \
 
-windows-dx10-builds: sys
-windows-dx10-builds: -static
-windows-dx10-builds: -bindist
-windows-dx10-build-include: windows*-**
-windows-dx10-build-exclude: **
-windows-dx10-build-config:
+dx10-builds: sys
+dx10-builds: -bindist
+dx10-build-include: windows*-static**
+dx10-build-exclude: **
+dx10-build-config:
 \
 config.libimgui.backend="dx10"
 \
 
-windows-dx11-builds: sys
-windows-dx11-builds: -static
-windows-dx11-builds: -bindist
-windows-dx11-build-include: windows*-**
-windows-dx11-build-exclude: **
-windows-dx11-build-config:
+dx11-builds: sys
+dx11-builds: -bindist
+dx11-build-include: windows*-static**
+dx11-build-exclude: **
+dx11-build-config:
 \
 config.libimgui.backend="dx11"
 \
 
-windows-dx12-builds: sys
-windows-dx12-builds: -static
-windows-dx12-builds: -bindist
-windows-dx12-build-include: windows*-**
-windows-dx12-build-exclude: **
-windows-dx12-build-config:
+dx12-builds: sys
+dx12-builds: -bindist
+dx12-build-include: windows*-static**
+dx12-build-exclude: **
+dx12-build-config:
 \
 config.libimgui.backend="dx12"
 \
 
-windows-win32-builds: sys
-windows-win32-builds: -static
-windows-win32-builds: -bindist
-windows-win32-build-include: windows*-**
-windows-win32-build-exclude: **
-windows-win32-build-config:
+win32-builds: sys
+win32-builds: -bindist
+win32-build-include: windows*-static**
+win32-build-exclude: **
+win32-build-config:
 \
 config.libimgui.backend="win32"
 \
