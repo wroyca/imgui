@@ -65,6 +65,7 @@ config.libimgui.backend="opengl3"
 
 vulkan-builds: sys
 vulkan-builds: -bindist
+vulkan-builds: -static
 vulkan-build-include: linux_debian*-**
 vulkan-build-include: linux_fedora*-**
 vulkan-build-exclude: **
@@ -75,6 +76,7 @@ config.libimgui.backend="vulkan"
 
 glfw-builds: sys
 glfw-builds: -bindist
+glfw-builds: -static
 glfw-build-include: linux_debian*-**
 glfw-build-include: linux_fedora*-**
 glfw-build-include: windows*-**
@@ -86,6 +88,7 @@ config.libimgui.backend="glfw"
 
 glfw-opengl2-builds: sys
 glfw-opengl2-builds: -bindist
+glfw-opengl2-builds: -static
 glfw-opengl2-build-include: linux_debian*-**
 glfw-opengl2-build-include: linux_fedora*-**
 glfw-opengl2-build-exclude: **
@@ -96,6 +99,7 @@ config.libimgui.backend="glfw opengl2"
 
 glfw-opengl3-builds: sys
 glfw-opengl3-builds: -bindist
+glfw-opengl3-builds: -static
 glfw-opengl3-build-include: linux_debian*-**
 glfw-opengl3-build-include: linux_fedora*-**
 glfw-opengl3-build-exclude: **
@@ -106,6 +110,7 @@ config.libimgui.backend="glfw opengl3"
 
 glfw-vulkan-builds: sys
 glfw-vulkan-builds: -bindist
+glfw-vulkan-builds: -static
 glfw-vulkan-build-include: linux_debian*-**
 glfw-vulkan-build-include: linux_fedora*-**
 glfw-vulkan-build-exclude: **
