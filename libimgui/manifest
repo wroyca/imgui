@@ -13,14 +13,17 @@ package-email: packaging@build2.org ; Mailing list.
 depends: * build2 >= 0.17.0
 depends: * bpkg >= 0.17.0
 
-depends: libopengl-meta >= 1.0.0 ? ($config.libimgui.backend == "opengl2" || \
-                                    $config.libimgui.backend == "opengl3")
-depends: libvulkan-meta >= 1.0.0 ? ($config.libimgui.backend == "vulkan")
+depends: libopengl-meta >= 1.0.0 ? ($config.libimgui.backend != [null] && \
+                                    ($find($config.libimgui.backend, "opengl2") || \
+                                     $find($config.libimgui.backend, "opengl3")))
+depends: libvulkan-meta >= 1.0.0 ? ($config.libimgui.backend != [null] && \
+                                    $find($config.libimgui.backend, "vulkan"))
 depends:
 \
 glfw >= 3.4.0
 {
-  enable ($config.libimgui.backend == "glfw")
+  enable ($config.libimgui.backend != [null] && \
+          $find($config.libimgui.backend, "glfw"))
 
   require
   {
@@ -79,6 +82,36 @@ glfw-build-exclude: **
 glfw-build-config:
 \
 config.libimgui.backend="glfw"
+\
+
+glfw-opengl2-builds: sys
+glfw-opengl2-builds: -bindist
+glfw-opengl2-build-include: linux_debian*-**
+glfw-opengl2-build-include: linux_fedora*-**
+glfw-opengl2-build-exclude: **
+glfw-opengl2-build-config:
+\
+config.libimgui.backend="glfw opengl2"
+\
+
+glfw-opengl3-builds: sys
+glfw-opengl3-builds: -bindist
+glfw-opengl3-build-include: linux_debian*-**
+glfw-opengl3-build-include: linux_fedora*-**
+glfw-opengl3-build-exclude: **
+glfw-opengl3-build-config:
+\
+config.libimgui.backend="glfw opengl3"
+\
+
+glfw-vulkan-builds: sys
+glfw-vulkan-builds: -bindist
+glfw-vulkan-build-include: linux_debian*-**
+glfw-vulkan-build-include: linux_fedora*-**
+glfw-vulkan-build-exclude: **
+glfw-vulkan-build-config:
+\
+config.libimgui.backend="glfw vulkan"
 \
 
 dx9-builds: sys

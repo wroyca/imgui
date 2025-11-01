@@ -2,32 +2,32 @@ intf_libs = # Interface dependencies.
 impl_libs = # Implementation dependencies.
 plat_libs = # Platform depencencies.
 
-if ($config.libimgui.backend == "glfw")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "glfw"))
 {
   import intf_libs += glfw%lib{glfw}
 }
 
-if ($config.libimgui.backend == "sdl2")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdl2"))
 {
   fail "SDL2 backend unsupported in this package; consider contributing an implementation."
 }
 
-if ($config.libimgui.backend == "sdl3")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdl3"))
 {
   fail "SDL3 backend unsupported in this package; consider contributing an implementation."
 }
 
-if ($config.libimgui.backend == "allegro5")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "allegro5"))
 {
   fail "Allegro5 backend unsupported in this package; consider contributing an implementation."
 }
 
-if ($config.libimgui.backend == "glut")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "glut"))
 {
   fail "GLUT backend unsupported in this package; consider contributing an implementation."
 }
 
-if ($config.libimgui.backend == "win32")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "win32"))
 {
   if ($cxx.target.class == 'windows')
   {
@@ -38,32 +38,32 @@ if ($config.libimgui.backend == "win32")
   }
 }
 
-if ($config.libimgui.backend == "osx")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "osx"))
 {
   fail "OSX backend unsupported; consider contributing an implementation."
 }
 
-if ($config.libimgui.backend == "android")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "android"))
 {
   fail "Android backend unsupported; consider contributing an implementation."
 }
 
-if ($config.libimgui.backend == "opengl2")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "opengl2"))
 {
   import intf_libs += libopengl-meta%lib{opengl-gl}
 }
 
-if ($config.libimgui.backend == "opengl3")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "opengl3"))
 {
   import intf_libs += libopengl-meta%lib{opengl-gl}
 }
 
-if ($config.libimgui.backend == "vulkan")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "vulkan"))
 {
   import intf_libs += libvulkan-meta%lib{vulkan}
 }
 
-if ($config.libimgui.backend == "dx9")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "dx9"))
 {
   if ($cxx.target.class == 'windows')
   {
@@ -74,7 +74,7 @@ if ($config.libimgui.backend == "dx9")
   }
 }
 
-if ($config.libimgui.backend == "dx10")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "dx10"))
 {
   if ($cxx.target.class == 'windows')
   {
@@ -85,7 +85,7 @@ if ($config.libimgui.backend == "dx10")
   }
 }
 
-if ($config.libimgui.backend == "dx11")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "dx11"))
 {
   if ($cxx.target.class == 'windows')
   {
@@ -96,7 +96,7 @@ if ($config.libimgui.backend == "dx11")
   }
 }
 
-if ($config.libimgui.backend == "dx12")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "dx12"))
 {
   if ($cxx.target.class == 'windows')
   {
@@ -107,59 +107,59 @@ if ($config.libimgui.backend == "dx12")
   }
 }
 
-if ($config.libimgui.backend == "metal")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "metal"))
 {
   fail "Metal backend unsupported in this package; consider contributing an implementation."
 }
 
-if ($config.libimgui.backend == "wgpu")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "wgpu"))
 {
   fail "WebGPU backend unsupported in this package; consider contributing an implementation."
 }
 
-if ($config.libimgui.backend == "sdlrenderer2")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlrenderer2"))
 {
   fail "SDL Renderer 2 backend unsupported in this package; consider contributing an implementation."
 }
 
-if ($config.libimgui.backend == "sdlrenderer3")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlrenderer3"))
 {
   fail "SDL Renderer 3 backend unsupported in this package; consider contributing an implementation."
 }
 
-if ($config.libimgui.backend == "sdlgpu3")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlgpu3"))
 {
   fail "SDL GPU 3 backend unsupported in this package; consider contributing an implementation."
 }
 
-if ($config.libimgui.backend == "sdlgpu3")
+if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlgpu3"))
 {
   fail "SDL GPU 3 backend unsupported in this package; consider contributing an implementation."
 }
 
 lib{imgui}: {hxx cxx}{*} $impl_libs $intf_libs
-lib{imgui}: {hxx cxx}{backends/imgui_impl_glfw}:            include = ($config.libimgui.backend == "glfw")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_sdl2}:            include = ($config.libimgui.backend == "sdl2")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_sdl3}:            include = ($config.libimgui.backend == "sdl3")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_allegro5}:        include = ($config.libimgui.backend == "allegro5")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_glut}:            include = ($config.libimgui.backend == "glut")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_win32}:           include = ($config.libimgui.backend == "win32")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_android}:         include = ($config.libimgui.backend == "android")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_opengl2}:         include = ($config.libimgui.backend == "opengl2")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_opengl3}:         include = ($config.libimgui.backend == "opengl3")
-lib{imgui}: {hxx    }{backends/imgui_impl_opengl3_loader}:  include = ($config.libimgui.backend == "opengl3")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_vulkan}:          include = ($config.libimgui.backend == "vulkan")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_dx9}:             include = ($config.libimgui.backend == "dx9")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_dx10}:            include = ($config.libimgui.backend == "dx10")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_dx11}:            include = ($config.libimgui.backend == "dx11")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_dx12}:            include = ($config.libimgui.backend == "dx12")
-lib{imgui}: {hxx    }{backends/imgui_impl_metal}:           include = ($config.libimgui.backend == "metal")
-lib{imgui}: {hxx    }{backends/imgui_impl_osx}:             include = ($config.libimgui.backend == "osx")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_wgpu}:            include = ($config.libimgui.backend == "wgpu")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_sdlrenderer2}:    include = ($config.libimgui.backend == "sdlrenderer2")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_sdlrenderer3}:    include = ($config.libimgui.backend == "sdlrenderer3")
-lib{imgui}: {hxx cxx}{backends/imgui_impl_sdlgpu3}:         include = ($config.libimgui.backend == "sdlgpu3")
-lib{imgui}: {hxx    }{backends/imgui_impl_sdlgpu3_shaders}: include = ($config.libimgui.backend == "sdlgpu3")
+lib{imgui}: {hxx cxx}{backends/imgui_impl_glfw}:            include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "glfw"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_sdl2}:            include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdl2"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_sdl3}:            include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdl3"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_allegro5}:        include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "allegro5"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_glut}:            include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "glut"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_win32}:           include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "win32"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_android}:         include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "android"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_opengl2}:         include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "opengl2"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_opengl3}:         include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "opengl3"))
+lib{imgui}: {hxx    }{backends/imgui_impl_opengl3_loader}:  include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "opengl3"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_vulkan}:          include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "vulkan"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_dx9}:             include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "dx9"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_dx10}:            include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "dx10"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_dx11}:            include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "dx11"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_dx12}:            include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "dx12"))
+lib{imgui}: {hxx    }{backends/imgui_impl_metal}:           include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "metal"))
+lib{imgui}: {hxx    }{backends/imgui_impl_osx}:             include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "osx"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_wgpu}:            include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "wgpu"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_sdlrenderer2}:    include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlrenderer2"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_sdlrenderer3}:    include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlrenderer3"))
+lib{imgui}: {hxx cxx}{backends/imgui_impl_sdlgpu3}:         include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlgpu3"))
+lib{imgui}: {hxx    }{backends/imgui_impl_sdlgpu3_shaders}: include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlgpu3"))
 
 # Build options.
 #
