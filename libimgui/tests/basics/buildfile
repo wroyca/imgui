@@ -1,3 +1,3 @@
-import libs = libimgui%lib{imgui}
+import libs = libimgui%liba{imgui}
 
 exe{driver}: {hxx ixx txx cxx}{**} $libs testscript{**}
