@@ -179,7 +179,7 @@ lib{imgui}:
   cxx.export.libs = $intf_libs $plat_libs
 }
 
-#liba{imgui}: cxx.export.poptions += -DLIBIMGUI_STATIC
+liba{imgui}: cxx.export.poptions += -DIMGUI_STATIC
 #libs{imgui}: cxx.export.poptions += -DLIBIMGUI_SHARED
 
 # For pre-releases use the complete version to make sure they cannot
