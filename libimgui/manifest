@@ -16,8 +16,6 @@ depends: * bpkg >= 0.17.0
 depends: libopengl-meta >= 1.0.0 ? ($config.libimgui.backend != [null] && \
                                     ($find($config.libimgui.backend, "opengl2") || \
                                      $find($config.libimgui.backend, "opengl3")))
-depends: libvulkan-meta >= 1.0.0 ? ($config.libimgui.backend != [null] && \
-                                    $find($config.libimgui.backend, "vulkan"))
 depends:
 \
 glfw >= 3.4.0
@@ -63,17 +61,6 @@ opengl3-build-config:
 config.libimgui.backend="opengl3"
 \
 
-vulkan-builds: sys
-vulkan-builds: -bindist
-vulkan-builds: -static
-vulkan-build-include: linux_debian*-**
-vulkan-build-include: linux_fedora*-**
-vulkan-build-exclude: **
-vulkan-build-config:
-\
-config.libimgui.backend="vulkan"
-\
-
 glfw-builds: sys
 glfw-builds: -bindist
 glfw-builds: -static
@@ -106,17 +93,6 @@ glfw-opengl3-build-exclude: **
 glfw-opengl3-build-config:
 \
 config.libimgui.backend="glfw opengl3"
-\
-
-glfw-vulkan-builds: sys
-glfw-vulkan-builds: -bindist
-glfw-vulkan-builds: -static
-glfw-vulkan-build-include: linux_debian*-**
-glfw-vulkan-build-include: linux_fedora*-**
-glfw-vulkan-build-exclude: **
-glfw-vulkan-build-config:
-\
-config.libimgui.backend="glfw vulkan"
 \
 
 dx9-builds: sys

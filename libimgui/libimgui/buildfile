@@ -60,7 +60,7 @@ if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "openg
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "vulkan"))
 {
-  import intf_libs += libvulkan-meta%lib{vulkan}
+  fail "Vulkan backend unsupported in this package; consider contributing an implementation."
 }
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "dx9"))
