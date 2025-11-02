@@ -43,6 +43,7 @@ builds: -bindist
 
 opengl2-builds: sys
 opengl2-builds: -bindist
+opengl2-builds: -static
 opengl2-build-include: linux_debian*-**
 opengl2-build-include: linux_fedora*-**
 opengl2-build-exclude: **
@@ -53,6 +54,7 @@ config.libimgui.backend="opengl2"
 
 opengl3-builds: sys
 opengl3-builds: -bindist
+opengl3-builds: -static
 opengl3-build-include: linux_debian*-**
 opengl3-build-include: linux_fedora*-**
 opengl3-build-exclude: **
@@ -97,6 +99,7 @@ config.libimgui.backend="glfw opengl3"
 
 dx9-builds: sys
 dx9-builds: -bindist
+dx9-builds: -static
 dx9-build-include: windows*-**
 dx9-build-exclude: **
 dx9-build-config:
@@ -106,6 +109,7 @@ config.libimgui.backend="dx9"
 
 dx10-builds: sys
 dx10-builds: -bindist
+dx10-builds: -static
 dx10-build-include: windows*-**
 dx10-build-exclude: **
 dx10-build-config:
@@ -115,6 +119,7 @@ config.libimgui.backend="dx10"
 
 dx11-builds: sys
 dx11-builds: -bindist
+dx11-builds: -static
 dx11-build-include: windows*-**
 dx11-build-exclude: **
 dx11-build-config:
@@ -124,6 +129,7 @@ config.libimgui.backend="dx11"
 
 dx12-builds: sys
 dx12-builds: -bindist
+dx12-builds: -static
 dx12-build-include: windows*-**
 dx12-build-exclude: **
 dx12-build-config:
@@ -133,6 +139,7 @@ config.libimgui.backend="dx12"
 
 win32-builds: sys
 win32-builds: -bindist
+win32-builds: -static
 win32-build-include: windows*-**
 win32-build-exclude: **
 win32-build-config:
