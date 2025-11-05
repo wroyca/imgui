@@ -60,14 +60,16 @@ if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "vulka
     #
     if ($cxx.target.system == 'mingw32')
     {
+      # Get sysroot from the compiler
+      #
+      sysroot = $process.run_regex($cxx.path -print-sysroot, '(.+)', '\1')
+
       # MinGW sysroot layout:
       #
       #   <sysroot>/mingw/include/
       #   <sysroot>/mingw/include/vulkan/
       #   <sysroot>/mingw/lib/
       #
-      sysroot = $cxx.target.sys_root
-
       vulkan_poptions += "-I$sysroot/mingw/include"
       vulkan_poptions += "-I$sysroot/mingw/include/vulkan"
       vulkan_loptions += "-L$sysroot/mingw/lib"
