@@ -3,30 +3,22 @@ impl_libs = # Implementation dependencies.
 plat_libs = # Platform depencencies.
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "glfw"))
-{
   import intf_libs += glfw%lib{glfw}
-}
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdl2"))
-{
   fail "SDL2 backend unsupported in this package; consider contributing an implementation."
-}
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdl3"))
-{
   fail "SDL3 backend unsupported in this package; consider contributing an implementation."
-}
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "allegro5"))
-{
   fail "Allegro5 backend unsupported in this package; consider contributing an implementation."
-}
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "glut"))
-{
   fail "GLUT backend unsupported in this package; consider contributing an implementation."
-}
 
+# Win32 backend requires platform graphics libraries.
+#
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "win32"))
 {
   if ($cxx.target.class == 'windows')
@@ -39,30 +31,26 @@ if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "win32
 }
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "osx"))
-{
   fail "OSX backend unsupported; consider contributing an implementation."
-}
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "android"))
-{
   fail "Android backend unsupported; consider contributing an implementation."
-}
 
+# OpenGL backends need libopengl-meta.
+#
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "opengl2"))
-{
   import intf_libs += libopengl-meta%lib{opengl-gl}
-}
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "opengl3"))
-{
   import intf_libs += libopengl-meta%lib{opengl-gl}
-}
 
+# Vulkan backends need libvulkan-meta.
+#
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "vulkan"))
-{
-  fail "Vulkan backend unsupported in this package; consider contributing an implementation."
-}
+  import intf_libs += libvulkan-meta%lib{vulkan}
 
+# Direct3D backends.
+#
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "dx9"))
 {
   if ($cxx.target.class == 'windows')
@@ -108,36 +96,24 @@ if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "dx12"
 }
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "metal"))
-{
   fail "Metal backend unsupported in this package; consider contributing an implementation."
-}
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "wgpu"))
-{
   fail "WebGPU backend unsupported in this package; consider contributing an implementation."
-}
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlrenderer2"))
-{
   fail "SDL Renderer 2 backend unsupported in this package; consider contributing an implementation."
-}
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlrenderer3"))
-{
   fail "SDL Renderer 3 backend unsupported in this package; consider contributing an implementation."
-}
 
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlgpu3"))
-{
   fail "SDL GPU 3 backend unsupported in this package; consider contributing an implementation."
-}
 
-if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlgpu3"))
-{
-  fail "SDL GPU 3 backend unsupported in this package; consider contributing an implementation."
-}
+# Backend source selection.
+#
+lib{imgui}: {hxx cxx}{*}
 
-lib{imgui}: {hxx cxx}{*} $impl_libs $intf_libs
 lib{imgui}: {hxx cxx}{backends/imgui_impl_glfw}:            include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "glfw"))
 lib{imgui}: {hxx cxx}{backends/imgui_impl_sdl2}:            include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdl2"))
 lib{imgui}: {hxx cxx}{backends/imgui_impl_sdl3}:            include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdl3"))
@@ -160,6 +136,12 @@ lib{imgui}: {hxx cxx}{backends/imgui_impl_sdlrenderer2}:    include = ($config.l
 lib{imgui}: {hxx cxx}{backends/imgui_impl_sdlrenderer3}:    include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlrenderer3"))
 lib{imgui}: {hxx cxx}{backends/imgui_impl_sdlgpu3}:         include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlgpu3"))
 lib{imgui}: {hxx    }{backends/imgui_impl_sdlgpu3_shaders}: include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlgpu3"))
+
+# Note that ordering here matters. In particular, some backends (e.g., GLFW) expect
+# their symbols to precede ImGui's own backend glue during resolution on Windows
+# targets.
+#
+lib{imgui}: $impl_libs $intf_libs
 
 # Build options.
 #
