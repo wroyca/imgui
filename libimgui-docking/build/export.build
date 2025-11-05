@@ -1,0 +1,6 @@
+$out_root/
+{
+  include libimgui-docking/
+}
+
+export $out_root/libimgui-docking/$import.target

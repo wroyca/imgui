@@ -1,0 +1,3 @@
+import libs = libimgui-docking%liba{imgui-docking}
+
+exe{driver}: {hxx ixx txx cxx}{**} $libs testscript{**}
