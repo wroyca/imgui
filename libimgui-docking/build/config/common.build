@@ -1,2 +1,59 @@
 config [strings] config.libimgui_docking.backend ?= [null]
 config [string]  config.libimgui_docking.vulkan_sdk_root ?= "$getenv(VULKAN_SDK)"
+
+# Compile-time configuration options
+config [bool] config.libimgui_docking.disable_obsolete_functions ?= false
+config [bool] config.libimgui_docking.disable ?= false
+config [bool] config.libimgui_docking.disable_demo_windows ?= false
+config [bool] config.libimgui_docking.disable_debug_tools ?= false
+
+# Win32/OSX platform function configurations
+config [bool] config.libimgui_docking.disable_win32_default_clipboard_functions ?= false
+config [bool] config.libimgui_docking.enable_win32_default_ime_functions ?= false
+config [bool] config.libimgui_docking.disable_win32_default_ime_functions ?= false
+config [bool] config.libimgui_docking.disable_win32_functions ?= false
+config [bool] config.libimgui_docking.enable_osx_default_clipboard_functions ?= false
+
+# Default function implementations
+config [bool] config.libimgui_docking.disable_default_shell_functions ?= false
+config [bool] config.libimgui_docking.disable_default_format_functions ?= false
+config [bool] config.libimgui_docking.disable_default_math_functions ?= false
+config [bool] config.libimgui_docking.disable_file_functions ?= false
+config [bool] config.libimgui_docking.disable_default_file_functions ?= false
+config [bool] config.libimgui_docking.disable_default_allocators ?= false
+config [bool] config.libimgui_docking.disable_default_font ?= false
+config [bool] config.libimgui_docking.disable_sse ?= false
+
+# Test engine
+config [bool] config.libimgui_docking.enable_test_engine ?= false
+
+# User header inclusion
+config [bool] config.libimgui_docking.include_imgui_user_h ?= false
+config [string] config.libimgui_docking.user_h_filename ?= [null]
+
+# Rendering options
+config [bool] config.libimgui_docking.use_bgra_packed_color ?= false
+config [bool] config.libimgui_docking.use_legacy_crc32_adler ?= false
+config [bool] config.libimgui_docking.use_wchar32 ?= false
+
+# STB library configurations
+config [string] config.libimgui_docking.stb_truetype_filename ?= [null]
+config [string] config.libimgui_docking.stb_rect_pack_filename ?= [null]
+config [string] config.libimgui_docking.stb_sprintf_filename ?= [null]
+config [bool] config.libimgui_docking.disable_stb_truetype_implementation ?= false
+config [bool] config.libimgui_docking.disable_stb_rect_pack_implementation ?= false
+config [bool] config.libimgui_docking.disable_stb_sprintf_implementation ?= false
+config [bool] config.libimgui_docking.use_stb_sprintf ?= false
+
+# FreeType support
+config [bool] config.libimgui_docking.enable_freetype ?= false
+config [bool] config.libimgui_docking.enable_freetype_plutosvg ?= false
+config [bool] config.libimgui_docking.enable_freetype_lunasvg ?= false
+config [bool] config.libimgui_docking.enable_stb_truetype ?= false
+
+# Math operators
+config [bool] config.libimgui_docking.define_math_operators ?= false
+
+# Debug tools
+config [bool] config.libimgui_docking.debug_highlight_all_id_conflicts ?= false
+config [bool] config.libimgui_docking.debug_paranoid ?= false

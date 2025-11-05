@@ -181,7 +181,66 @@ if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdlgp
 
 # Backend source selection.
 #
-lib{imgui}: {hxx cxx}{*}
+lib{imgui}: {hxx cxx}{* -imconfig} hxx{imconfig}
+
+# Generate imconfig.h from template
+#
+hxx{imconfig}: in{imconfig}
+{
+  # Map config variables to #define statements (empty string if false/null)
+  #
+  IMGUI_DISABLE_OBSOLETE_FUNCTIONS                = ($config.libimgui.disable_obsolete_functions                ? '#define IMGUI_DISABLE_OBSOLETE_FUNCTIONS'                                                 : '')
+  IMGUI_DISABLE                                   = ($config.libimgui.disable                                   ? '#define IMGUI_DISABLE'                                                                    : '')
+  IMGUI_DISABLE_DEMO_WINDOWS                      = ($config.libimgui.disable_demo_windows                      ? '#define IMGUI_DISABLE_DEMO_WINDOWS'                                                       : '')
+  IMGUI_DISABLE_DEBUG_TOOLS                       = ($config.libimgui.disable_debug_tools                       ? '#define IMGUI_DISABLE_DEBUG_TOOLS'                                                        : '')
+  IMGUI_DISABLE_WIN32_DEFAULT_CLIPBOARD_FUNCTIONS = ($config.libimgui.disable_win32_default_clipboard_functions ? '#define IMGUI_DISABLE_WIN32_DEFAULT_CLIPBOARD_FUNCTIONS'                                  : '')
+  IMGUI_ENABLE_WIN32_DEFAULT_IME_FUNCTIONS        = ($config.libimgui.enable_win32_default_ime_functions        ? '#define IMGUI_ENABLE_WIN32_DEFAULT_IME_FUNCTIONS'                                         : '')
+  IMGUI_DISABLE_WIN32_DEFAULT_IME_FUNCTIONS       = ($config.libimgui.disable_win32_default_ime_functions       ? '#define IMGUI_DISABLE_WIN32_DEFAULT_IME_FUNCTIONS'                                        : '')
+  IMGUI_DISABLE_WIN32_FUNCTIONS                   = ($config.libimgui.disable_win32_functions                   ? '#define IMGUI_DISABLE_WIN32_FUNCTIONS'                                                    : '')
+  IMGUI_ENABLE_OSX_DEFAULT_CLIPBOARD_FUNCTIONS    = ($config.libimgui.enable_osx_default_clipboard_functions    ? '#define IMGUI_ENABLE_OSX_DEFAULT_CLIPBOARD_FUNCTIONS'                                     : '')
+  IMGUI_DISABLE_DEFAULT_SHELL_FUNCTIONS           = ($config.libimgui.disable_default_shell_functions           ? '#define IMGUI_DISABLE_DEFAULT_SHELL_FUNCTIONS'                                            : '')
+  IMGUI_DISABLE_DEFAULT_FORMAT_FUNCTIONS          = ($config.libimgui.disable_default_format_functions          ? '#define IMGUI_DISABLE_DEFAULT_FORMAT_FUNCTIONS'                                           : '')
+  IMGUI_DISABLE_DEFAULT_MATH_FUNCTIONS            = ($config.libimgui.disable_default_math_functions            ? '#define IMGUI_DISABLE_DEFAULT_MATH_FUNCTIONS'                                             : '')
+  IMGUI_DISABLE_FILE_FUNCTIONS                    = ($config.libimgui.disable_file_functions                    ? '#define IMGUI_DISABLE_FILE_FUNCTIONS'                                                     : '')
+  IMGUI_DISABLE_DEFAULT_FILE_FUNCTIONS            = ($config.libimgui.disable_default_file_functions            ? '#define IMGUI_DISABLE_DEFAULT_FILE_FUNCTIONS'                                             : '')
+  IMGUI_DISABLE_DEFAULT_ALLOCATORS                = ($config.libimgui.disable_default_allocators                ? '#define IMGUI_DISABLE_DEFAULT_ALLOCATORS'                                                 : '')
+  IMGUI_DISABLE_DEFAULT_FONT                      = ($config.libimgui.disable_default_font                      ? '#define IMGUI_DISABLE_DEFAULT_FONT'                                                       : '')
+  IMGUI_DISABLE_SSE                               = ($config.libimgui.disable_sse                               ? '#define IMGUI_DISABLE_SSE'                                                                : '')
+  IMGUI_ENABLE_TEST_ENGINE                        = ($config.libimgui.enable_test_engine                        ? '#define IMGUI_ENABLE_TEST_ENGINE'                                                         : '')
+  IMGUI_INCLUDE_IMGUI_USER_H                      = ($config.libimgui.include_imgui_user_h                      ? '#define IMGUI_INCLUDE_IMGUI_USER_H'                                                       : '')
+  IMGUI_USER_H_FILENAME                           = ($config.libimgui.user_h_filename != [null]                 ? "#define IMGUI_USER_H_FILENAME \"$config.libimgui.user_h_filename\""               : '')
+  IMGUI_USE_BGRA_PACKED_COLOR                     = ($config.libimgui.use_bgra_packed_color                     ? '#define IMGUI_USE_BGRA_PACKED_COLOR'                                                      : '')
+  IMGUI_USE_LEGACY_CRC32_ADLER                    = ($config.libimgui.use_legacy_crc32_adler                    ? '#define IMGUI_USE_LEGACY_CRC32_ADLER'                                                     : '')
+  IMGUI_USE_WCHAR32                               = ($config.libimgui.use_wchar32                               ? '#define IMGUI_USE_WCHAR32'                                                                : '')
+  IMGUI_STB_TRUETYPE_FILENAME                     = ($config.libimgui.stb_truetype_filename != [null]           ? "#define IMGUI_STB_TRUETYPE_FILENAME \"$config.libimgui.stb_truetype_filename\""   : '')
+  IMGUI_STB_RECT_PACK_FILENAME                    = ($config.libimgui.stb_rect_pack_filename != [null]          ? "#define IMGUI_STB_RECT_PACK_FILENAME \"$config.libimgui.stb_rect_pack_filename\"" : '')
+  IMGUI_STB_SPRINTF_FILENAME                      = ($config.libimgui.stb_sprintf_filename != [null]            ? "#define IMGUI_STB_SPRINTF_FILENAME \"$config.libimgui.stb_sprintf_filename\""     : '')
+  IMGUI_DISABLE_STB_TRUETYPE_IMPLEMENTATION       = ($config.libimgui.disable_stb_truetype_implementation       ? '#define IMGUI_DISABLE_STB_TRUETYPE_IMPLEMENTATION'                                        : '')
+  IMGUI_DISABLE_STB_RECT_PACK_IMPLEMENTATION      = ($config.libimgui.disable_stb_rect_pack_implementation      ? '#define IMGUI_DISABLE_STB_RECT_PACK_IMPLEMENTATION'                                       : '')
+  IMGUI_DISABLE_STB_SPRINTF_IMPLEMENTATION        = ($config.libimgui.disable_stb_sprintf_implementation        ? '#define IMGUI_DISABLE_STB_SPRINTF_IMPLEMENTATION'                                         : '')
+  IMGUI_USE_STB_SPRINTF                           = ($config.libimgui.use_stb_sprintf                           ? '#define IMGUI_USE_STB_SPRINTF'                                                            : '')
+  IMGUI_ENABLE_FREETYPE                           = ($config.libimgui.enable_freetype                           ? '#define IMGUI_ENABLE_FREETYPE'                                                            : '')
+  IMGUI_ENABLE_FREETYPE_PLUTOSVG                  = ($config.libimgui.enable_freetype_plutosvg                  ? '#define IMGUI_ENABLE_FREETYPE_PLUTOSVG'                                                   : '')
+  IMGUI_ENABLE_FREETYPE_LUNASVG                   = ($config.libimgui.enable_freetype_lunasvg                   ? '#define IMGUI_ENABLE_FREETYPE_LUNASVG'                                                    : '')
+  IMGUI_ENABLE_STB_TRUETYPE                       = ($config.libimgui.enable_stb_truetype                       ? '#define IMGUI_ENABLE_STB_TRUETYPE'                                                        : '')
+  IMGUI_DEFINE_MATH_OPERATORS                     = ($config.libimgui.define_math_operators                     ? '#define IMGUI_DEFINE_MATH_OPERATORS'                                                      : '')
+  IMGUI_DEBUG_HIGHLIGHT_ALL_ID_CONFLICTS          = ($config.libimgui.debug_highlight_all_id_conflicts          ? '#define IMGUI_DEBUG_HIGHLIGHT_ALL_ID_CONFLICTS'                                           : '')
+  IMGUI_DEBUG_PARANOID                            = ($config.libimgui.debug_paranoid                            ? '#define IMGUI_DEBUG_PARANOID'                                                             : '')
+}
+
+hxx{imconfig}:
+{
+  # Include the generated config into the distribution and don't it when
+  # cleaning in src (so that clean results in a state identical to distributed).
+  #
+  dist  = true
+  clean = ($src_root != $out_root)
+
+  # We keep the generated code in the repository so copy it back to src in case
+  # of a forwarded configuration.
+  #
+  backlink = overwrite
+}
 
 lib{imgui}: {hxx cxx}{backends/imgui_impl_glfw}:            include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "glfw"))
 lib{imgui}: {hxx cxx}{backends/imgui_impl_sdl2}:            include = ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "sdl2"))
