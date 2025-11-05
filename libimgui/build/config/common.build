@@ -1,1 +1,2 @@
 config [strings] config.libimgui.backend ?= [null]
+config [string]  config.libimgui.vulkan_sdk_root ?= "$getenv(VULKAN_SDK)"

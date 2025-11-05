@@ -15,7 +15,6 @@ depends: * bpkg >= 0.17.0
 
 depends: libopengl-meta >= 1.0.0 ? ($config.libimgui.backend != [null] && ($find($config.libimgui.backend, "opengl2")   \
                                                                        ||  $find($config.libimgui.backend, "opengl3")))
-depends: libvulkan-meta >= 1.0.0 ? ($config.libimgui.backend != [null] &&  $find($config.libimgui.backend, "vulkan"))
 depends:
 \
 glfw >= 3.4.0

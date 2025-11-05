@@ -44,10 +44,79 @@ if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "openg
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "opengl3"))
   import intf_libs += libopengl-meta%lib{opengl-gl}
 
-# Vulkan backends need libvulkan-meta.
+# Vulkan backends
 #
 if ($config.libimgui.backend != [null] && $find($config.libimgui.backend, "vulkan"))
-  import intf_libs += libvulkan-meta%lib{vulkan}
+{
+  vulkan_libs =
+  vulkan_poptions =
+  vulkan_loptions =
+
+  # Windows targets
+  #
+  if ($cxx.target.class == 'windows')
+  {
+    # MinGW-w64 (cross or native).
+    #
+    if ($cxx.target.system == 'mingw32')
+    {
+      # MinGW sysroot layout:
+      #
+      #   <sysroot>/mingw/include/
+      #   <sysroot>/mingw/include/vulkan/
+      #   <sysroot>/mingw/lib/
+      #
+      sysroot = $cxx.target.sys_root
+
+      vulkan_poptions += "-I$sysroot/mingw/include"
+      vulkan_poptions += "-I$sysroot/mingw/include/vulkan"
+      vulkan_loptions += "-L$sysroot/mingw/lib"
+
+      vulkan_libs     += -lvulkan-1
+      vulkan_poptions += -DVK_PROTOTYPES
+    }
+    else
+    {
+      # MSVC / Windows SDK.
+      #
+      sdkr = $config.libimgui.vulkan_sdk_root
+
+      if ($sdkr != [null])
+      {
+        vulkan_poptions += "-I$sdkr/include/"
+
+        libdir = ($cxx.target.cpu == 'x86_64'
+                  ? "$sdkr/lib/"
+                  : "$sdkr/lib32/")
+
+        vulkan_loptions += "/LIBPATH:$libdir"
+      }
+
+      vulkan_libs     += vulkan-1.lib
+      vulkan_poptions += -DVK_PROTOTYPES
+    }
+  }
+  else
+  {
+    # POSIX targets (Linux, BSD, macOS).
+    #
+    sdkr = $config.libimgui.vulkan_sdk_root
+
+    if ($sdkr != [null])
+    {
+      vulkan_poptions += "-I$sdkr/include/"
+      vulkan_loptions += "-L$sdkr/lib/"
+    }
+
+    vulkan_libs += -lvulkan
+  }
+
+  # Apply backend-specific loader and SDK flags to this build only.
+  #
+  plat_libs    += $vulkan_libs
+  cxx.poptions += $vulkan_poptions
+  cxx.loptions += $vulkan_loptions
+}
 
 # Direct3D backends.
 #
